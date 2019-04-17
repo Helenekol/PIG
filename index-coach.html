@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div id="app">
+    <v-app>
+        <template>
+            <v-card
+              flat
+              tile
+            >
+              <v-toolbar
+                color="cyan"
+                dark
+              >
+                <v-toolbar-side-icon></v-toolbar-side-icon>
+          
+                <v-toolbar-title>Application</v-toolbar-title>
+          
+                <v-spacer></v-spacer>
+          
+                <v-btn icon>
+                  <v-icon>search</v-icon>
+                </v-btn>
+              </v-toolbar>
+              <v-list>
+                <v-list-tile
+                  v-for="item in items"
+                  :key="item.title"
+                  avatar
+                  @click="showDescription"
+                >
+                  <v-list-tile-action>
+                    <v-icon v-if="item.icon" color="pink">star</v-icon>
+                  </v-list-tile-action>
+      
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{item.name.first}} {{item.name.last}}</v-list-tile-title>
+                  </v-list-tile-content>
+      
+                  <v-list-tile-avatar>
+                    <img :src="item.picture">
+                  </v-list-tile-avatar>
+                </v-list-tile>
+              </v-list>
+            </v-card>
+          </v-flex>
+        </v-layout>
+        <v-dialog v-model="dialogDescription" fullscreen hide-overlay transition="dialog-bottom-transition" v-if="dialogDescription === true" >
+          <v-card>
+            <v-toolbar dark color="primary">
+              <v-btn icon dark @click="dialogDescription = false">
+                <v-icon>close</v-icon>
+              </v-btn>
+              <v-toolbar-title>Description</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-toolbar-items>
+              </v-toolbar-items>
+            </v-toolbar>
+            <v-list three-line subheader>
+              <v-subheader>Jean-Marc Duvier</v-subheader>
+              <v-list-tile avatar>
+                <v-list-tile-content>
+                  <v-list-tile-title>Lieu</v-list-tile-title>
+                  <v-list-tile-sub-title>Paris 18e </v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile avatar>
+                <v-list-tile-content>
+                  <v-list-tile-title>Password</v-list-tile-title>
+                  <v-list-tile-sub-title>Require password for purchase or use password to restrict purchase</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+            <v-divider></v-divider>
+            <v-list three-line subheader>
+              <v-subheader>General</v-subheader>
+              <v-list-tile avatar>
+                <v-list-tile-action>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Notifications</v-list-tile-title>
+                  <v-list-tile-sub-title>Notify me about updates to apps or games that I downloaded</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile avatar>
+                <v-list-tile-action>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Sound</v-list-tile-title>
+                  <v-list-tile-sub-title>Auto-update apps at any time. Data charges may apply</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile avatar>
+                <v-list-tile-action>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Auto-add widgets</v-list-tile-title>
+                  <v-list-tile-sub-title>Automatically add home screen widgets</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+          </v-card>
+        </v-dialog>
+          </template>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+  <script>
+    new Vue({ el: '#app',
+    data () {
+      return {
+        items: [],
+        dialogDescription: false
+      }
+    },
+
+    methods: {
+      showDescription (){
+      this.dialogDescription = true
+      },
+      getCoachList (){
+        fetch('https://cesitest-73b3e.firebaseio.com/coach.json')
+        .then(reponse => reponse.json())
+        .then(coachs => this.items= coachs)
+        
+      }
+    },
+    mounted (){
+      this.getCoachList()
+    }
+    })
+   
+  </script>
+</body>
+</html>
