@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <style type="text/CSS">
+    .totalSolde{
+  font-size: large;
+  font-weight: bold;
+  color: black; 
+  }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <v-app>
+      <template>
+        <v-card flat tile>
+          <v-toolbar color="green" dark>
+            <v-toolbar-side-icon></v-toolbar-side-icon>
+
+            <v-toolbar-title>PIG : Portefeuille Interactif de Gestion</v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon>
+              <v-icon>search</v-icon>
+            </v-btn>
+          </v-toolbar>
+
+          <template>
+            <v-card>
+              <v-card-title>
+                <div class="totalSolde">Votre solde total est de : {{totalSolde}}€</div>
+                <v-spacer></v-spacer>
+                <v-text-field v-model="Recherche" append-icon="search" label="Recherche" single-line hide-details>
+                </v-text-field>
+              </v-card-title>
+              <v-data-table :headers="headers" :items="desserts" :search="Recherche">
+                <template v-slot:items="props">
+                  <td>{{ props.item.name }}</td>
+                  <td class="text-xs-left">{{ props.item.dépenses }}</td>
+                  <td class="text-xs-left">{{ props.item.revenus }}</td>
+                  <td class="text-xs-left">{{ props.item.dates }}</td>
+                  <td class="text-xs-left">{{ props.item.descriptif }}</td>
+                  <td class="text-xs-left">{{ props.item.total }}</td>
+
+                </template>
+                <v-alert v-slot:no-results :value="true" color="error" icon="warning">
+                  Your search for "{{ search }}" found no results.
+                </v-alert>
+              </v-data-table>
+            </v-card>
+          </template>
+        </v-card>
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </template>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: () => ({
+        totalSolde: 0,
+        types: ['Places to Be', 'Places to See'],
+        cards: ['Good', 'Best', 'Finest'],
+        socials: [
+          {
+            icon: 'fab fa-facebook',
+            color: 'indigo'
+          },
+          {
+            icon: 'fab fa-linkedin',
+            color: 'cyan darken-1'
+          },
+          {
+            icon: 'fab fa-instagram',
+            color: 'red lighten-3'
+          }
+        ], Recherche: '',
+        headers: [
+          {
+            text: 'Dépenses et Revenus',
+            align: 'left',
+            sortable: false,
+            value: 'name'
+          },
+
+          { text: 'Dépenses (€)', value: 'dépenses' },
+          { text: 'Revenus (€)', value: 'revenus' },
+          { text: 'Dates', value: 'dates' },
+          { text: 'Descriptif', value: 'descriptif' },
+          { text: 'Total', value: 'total' },
+
+        ],
+        desserts: [
+          {
+            name: 'Shopping',
+            dépenses: 30,
+            revenus: 0,
+            dates: '01/02/2019',
+            descriptif: 'Vêtements',
+            total: 0,
+
+
+          },
+          {
+            name: 'Courses',
+            dépenses: 25,
+            revenus: 0,
+            dates: '05/04/2019',
+            descriptif: 'Nourritures',
+            total: 0,
+
+
+          },
+          {
+            name: 'Carburant',
+            dépenses: 39,
+            revenus: 0,
+            dates: '26/03/2019',
+            descriptif: 'Essence',
+            total: 0,
+
+
+          },
+          {
+            name: 'Cadeaux',
+            dépenses: 49,
+            revenus: 0,
+            dates: '05/02/2019',
+            descriptif: 'Anniversaire',
+            total: 0,
+
+
+          },
+          {
+            name: 'Cinéma',
+            dépenses: 15,
+            revenus: 0,
+            dates: '10/02/2019',
+            descriptif: 'Film',
+            total: 0,
+
+
+          },
+          {
+            name: 'Salaires',
+            dépenses: 0,
+            revenus: 900,
+            dates: '24/01/2019',
+            descriptif: 'SNCF',
+            total: 0,
+
+
+          },
+          {
+            name: 'Netflix',
+            dépenses: 10.99,
+            revenus: 0,
+            dates: '18/02/2019',
+            descriptif: 'Paiement quotidien',
+            total: 0,
+
+
+          },
+          {
+            name: 'Animaux',
+            dépenses: 50,
+            revenus: 0,
+            dates: '05/04/2019',
+            descriptif: 'Vétérinaire',
+            total: 0,
+
+
+          },
+          {
+            name: 'Restaurants',
+            dépenses: 60,
+            revenus: 0,
+            dates: '05/03/2019',
+            descriptif: 'Chinois',
+            total: 0,
+
+
+          },
+          {
+            name: 'Sorties',
+            dépenses: 40,
+            revenus: 0,
+            dates: '07/02/2019',
+            descriptif: 'festival',
+            total: 0,
+
+
+          },
+          {
+            name: 'Argent famille',
+            dépenses: 0,
+            revenus: 50,
+            dates: '12/02/2019',
+            descriptif: 'Remboursement',
+            total: 0,
+
+          }
+        ]
+      }),
+
+
+      mounted() {
+        this.getResult()
+        this.creerChart()
+      },
+      
+
+      methods: {
+        getResult() {
+          this.desserts.map(num => {
+            num.total = (num.revenus - num.dépenses)
+          })
+          // tableau qui reprend l'ensemble des soldes des catégories
+          const tableauDeSolde = this.desserts.map(obj => obj.total)
+
+          // formule mathématique libre 
+          const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+          // application de la formule + affectation à totalSolde de l'objet data
+          this.totalSolde = tableauDeSolde.reduce(reducer)
+
+        },
+        creerChart() {
+          var ctx = document.getElementById('myChart');
+          var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+        labels: ['Shopping', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data:  this.desserts.map(obj => obj.total),
+            backgroundColor: [
+                '#000000',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+          }
+          })
+        }
+      }
+
+
+    });
+
+
+  </script>
+
+</body>
+
+</html>
