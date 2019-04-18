@@ -1,90 +1,90 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <style type="text/css">
-  .imgDescription{
-  float: right;
-  background-color: blue;
-  }
-  .coach{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 20px;
-    padding-left: 15px;
-    color: cornflowerblue;
-  }
-  .address{
-    text-align: right;
-    padding-right: 15px;
-  }
-  .blockContenu{
-    padding: 25px 15px 0px 15px;
-  }
-  .sous-titre{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 15px; 
-    color: cornflowerblue;
-    padding-bottom: 15px;
-  }
-  .contenu-descrip{
-    font-family: Arial, Helvetica, sans-serif;
-    padding-top: 10px;
-  }
-  .btnContact{
-    padding-top: 20px;
-    text-align: center;
-  }
+    .imgDescription {
+      float: right;
+      background-color: blue;
+    }
+
+    .coach {
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-size: 20px;
+      padding-left: 15px;
+      color: cornflowerblue;
+    }
+
+    .address {
+      text-align: right;
+      padding-right: 15px;
+    }
+
+    .blockContenu {
+      padding: 25px 15px 0px 15px;
+    }
+
+    .sous-titre {
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-size: 15px;
+      color: cornflowerblue;
+      padding-bottom: 15px;
+    }
+
+    .contenu-descrip {
+      font-family: Arial, Helvetica, sans-serif;
+      padding-top: 10px;
+    }
+
+    .btnContact {
+      padding-top: 20px;
+      text-align: center;
+    }
   </style>
 
 </head>
+
 <body>
   <div id="app">
     <v-app>
-        <template>
-            <v-card
-              flat
-              tile
-            >
-              <v-toolbar
-                color="cyan"
-                dark
-              >
-                <v-toolbar-side-icon></v-toolbar-side-icon>
-          
-                <v-toolbar-title>Application</v-toolbar-title>
-          
-                <v-spacer></v-spacer>
-          
-                <v-btn icon>
-                  <v-icon>search</v-icon>
-                </v-btn>
-              </v-toolbar>
-              <v-list>
-                <v-list-tile
-                  v-for="coach in coachList"
-                  :key="coach.title"
-                  avatar
-                  @click="showDescription(coach)"
-                >
-                  <v-list-tile-action>
-                    <v-icon v-if="coach.icon" color="pink">star</v-icon>
-                  </v-list-tile-action>
-      
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{coach.name.first}} {{coach.name.last}}</v-list-tile-title>
-                  </v-list-tile-content>
-      
-                  <v-list-tile-avatar>
-                    <img :src="coach.picture">
-                  </v-list-tile-avatar>
-                </v-list-tile>
-              </v-list>
-            </v-card>
-          </v-flex>
+      <template>
+        <v-card flat tile>
+          <v-toolbar color="cyan" dark>
+            <v-toolbar-side-icon></v-toolbar-side-icon>
+
+            <v-toolbar-title>PIG : Portefeuille Interactif de Gestion</v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon>
+              <v-icon>search</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <v-list>
+            <v-list-tile v-for="coach in coachList" :key="coach.title" avatar @click="showDescription(coach)">
+              <v-list-tile-action>
+                <v-icon v-if="coach.icon" color="pink">star</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>{{coach.name.first}} {{coach.name.last}}</v-list-tile-title>
+              </v-list-tile-content>
+
+              <v-list-tile-avatar>
+                <img :src="coach.picture">
+              </v-list-tile-avatar>
+            </v-list-tile>
+          </v-list>
+        </v-card>
+        </v-flex>
         </v-layout>
-        <v-dialog v-model="dialogDescription" fullscreen hide-overlay transition="dialog-bottom-transition" v-if="dialogDescription === true" >
+
+
+        <v-dialog v-model="dialogDescription" fullscreen hide-overlay transition="dialog-bottom-transition"
+          v-if="dialogDescription === true">
           <v-card>
             <v-toolbar dark color="primary">
               <v-btn icon dark @click="dialogDescription = false">
@@ -96,71 +96,124 @@
               </v-toolbar-items>
             </v-toolbar>
             <v-list three-line subheader>
-                <v-list-tile-content>
-                  <v-list-tile-title> 
-                    <img class="imgDescription" :src= "currentCoach.picture">
-                  </v-list-tile-title>
-                  <v-list-tile-title class="coach">{{currentCoach.name.first}} {{currentCoach.name.last}}</v-list-tile-title>         
-                  <v-list-tile-title class="address">Adresse : {{currentCoach.address}}</v-list-tile-title>
-                </v-list-tile-content>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  <img class="imgDescription" :src="currentCoach.picture">
+                </v-list-tile-title>
+                <v-list-tile-title class="coach">{{currentCoach.name.first}} {{currentCoach.name.last}}
+                </v-list-tile-title>
+                <v-list-tile-title class="address">Adresse : {{currentCoach.address}}</v-list-tile-title>
+              </v-list-tile-content>
             </v-list>
             <v-divider></v-divider>
             <v-list three-line subheader>
-                <v-list-tile-action>
-                </v-list-tile-action>
-                <v-list-tile-content class="blockContenu">
-                  <v-list-tile-title class="sous-titre">Description</v-list-tile-title>
-                  <v-list-tile-sub-title class="contenu-descrip">{{currentCoach.about}}</v-list-tile-sub-title>
-                </v-list-tile-content>
-                <v-list-tile-content class="blockContenu">
-                    <v-list-tile-title class="sous-titre">Mes loisirs</v-list-tile-title>
-                    <v-list-tile-sub-title class="contenu-descrip">{{currentCoach.activity}}</v-list-tile-sub-title>
-                  </v-list-tile-content>
-                  <div class="btnContact">
-                      <v-btn round color="primary" dark>ENTRER EN CONTACT</v-btn>
-                    </div>
+              <v-list-tile-action>
+              </v-list-tile-action>
+              <v-list-tile-content class="blockContenu">
+                <v-list-tile-title class="sous-titre">Description</v-list-tile-title>
+                <v-list-tile-sub-title class="contenu-descrip">{{currentCoach.about}}</v-list-tile-sub-title>
+              </v-list-tile-content>
+              <v-list-tile-content class="blockContenu">
+                <v-list-tile-title class="sous-titre">Mes loisirs</v-list-tile-title>
+                <v-list-tile-sub-title class="contenu-descrip">{{currentCoach.activity}}</v-list-tile-sub-title>
+              </v-list-tile-content>
+              <div class="btnContact">        
+          <v-btn round color="primary" dark @click="contactLocalStorage()" >ENTRER EN CONTACT</v-btn>
+              </div>
 
+
+              <v-list>
+                </v-list-tile>
+              </v-list>
+          </v-card>
+          </v-flex>
+          </v-layout>
+        </v-dialog>
+        <v-dialog v-model="dialogContact" fullscreen hide-overlay transition="dialog-bottom-transition"
+          v-if="dialogContact === true">
+          <v-card>
+            <v-toolbar dark color="primary">
+              <v-btn icon dark @click="dialogContact = false">
+                <v-icon>close</v-icon>
+              </v-btn>
+              <v-toolbar-title>Description</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-toolbar-items>
+              </v-toolbar-items>
+            </v-toolbar>
+            <v-list three-line subheader>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  <img class="imgDescription" :src="currentCoach.picture">
+                </v-list-tile-title>
+                <v-list-tile-title class="coach">{{currentCoach.name.first}} {{currentCoach.name.last}}
+                </v-list-tile-title>
+                <v-list-tile-title class="address">Adresse : {{currentCoach.address}}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list>
+            <v-divider></v-divider>
+            <v-list three-line subheader>
+              <v-list-tile-action>
+              </v-list-tile-action>
+              <v-list-tile-content class="blockContenu">
+                <v-list-tile-title class="sous-titre">Description</v-list-tile-title>
+                <v-list-tile-sub-title class="contenu-descrip">{{currentCoach.about}}</v-list-tile-sub-title>
+              </v-list-tile-content>
+              <v-list-tile-content class="blockContenu">
+                <v-list-tile-title class="sous-titre">Mes loisirs</v-list-tile-title>
+                <v-list-tile-sub-title class="contenu-descrip">{{currentCoach.activity}}</v-list-tile-sub-title>
+              </v-list-tile-content>
+              <div class="btnContact">
+                <v-btn round color="primary" dark>ENTRER EN CONTACT</v-btn>
+              </div>
             </v-list>
           </v-card>
         </v-dialog>
-          </template>
+      </template>
     </v-app>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
   <script>
-    new Vue({ el: '#app',
-    data () {
-      return {
-        coachList: [],
-        currentCoach: {},
-        dialogDescription: false
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          coachList: [],
+          currentCoach: {},
+          dialogDescription: false,
+          dialogContact: false
+        }
+      },
+
+      methods: {
+        showDescription(coach) {
+          this.currentCoach = coach
+          this.dialogDescription = true
+
+        },
+        contactLocalStorage() {
+          const contactContenu = { nom: this.currentCoach.name.last,
+           prenom: this.currentCoach.name.first,
+            mail: this.currentCoach.email,
+             phone: this.currentCoach.phone }
+          localStorage.setItem("infoContact", JSON.stringify(contactContenu))
+          window.location.href = "Contact.html"
+        },
+        getCoachList() {
+          fetch('https://cesitest-73b3e.firebaseio.com/coach.json')
+            .then(reponse => reponse.json())
+            .then(coachs => this.coachList = coachs)
+
+        },
+      },
+      mounted() {
+        this.getCoachList()
       }
-    },
-
-    methods: {
-      showDescription (coach){
-      this.currentCoach = coach  
-      this.dialogDescription = true
-
-      },
-      showContact (){
-      this.dialogContact = true
-
-      },
-      getCoachList (){
-        fetch('https://cesitest-73b3e.firebaseio.com/coach.json')
-        .then(reponse => reponse.json())
-        .then(coachs => this.coachList= coachs)
-        
-      },
-    },
-    mounted (){
-      this.getCoachList()
-    }
     })
-   
+
   </script>
 </body>
+
 </html>
