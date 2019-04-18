@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body style="max-width:700px; margin:auto">
+        <div  id="creaCagnotte">
+    <v-app>
+        <template>
+            <v-layout  row wrap>
+                  <v-flex xs12 sm6>
+                    <v-date-picker :disabled="dates.length >= 2"
+                      v-model="dates"
+                      multiple
+                    ></v-date-picker>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-menu
+                      ref="menu"
+                      v-model="menu"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      :return-value.sync="dates"
+                      lazy
+                      transition="scale-transition"
+                      offset-y
+                      full-width
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-combobox
+                          v-model="dates"
+                          multiple
+                          chips
+                          small-chips
+                          label="Multiple picker in menu"
+                          prepend-icon="event"
+                          readonly
+                          v-on="on"
+                        ></v-combobox>
+                        <v-form v-model="valid">
+                                <v-container>
+                                  <v-layout>
+                                    <v-flex
+                                      xs12
+                                      md4
+                                    >
+                                      <v-text-field
+                                        v-model="NomCagnotte"
+                                        :rules="nameRules"
+                                        label="Nom cagnotte"
+                                        required
+                                      ></v-text-field>
+                                    </v-flex>
+                            
+                                    <v-flex
+                                      xs12
+                                      md4
+                                    >
+                                      <v-text-field
+                                        v-model="Budget"
+                                        :rules="nameRules"
+                                        label="Budget"
+                                        required
+                                      ></v-text-field>
+                                    </v-flex>
+                        
+                                    </v-flex>
+                                  </v-layout>
+                                </v-container>
+                              </v-form>
+                      </template>
+                      <v-date-picker v-model="dates" multiple no-title scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+                        <v-btn flat color="primary" @click="$refs.menu.save(dates)">OK</v-btn>
+                      </v-date-picker>
+                    </v-menu>
+                  </v-flex>
+                </v-layout>
+              </template>
+              <template>
+                    <div>
+                      <v-btn color="success">Creer</v-btn>
+                      <a href="CagnottePIG.html" style="text-decoration:none;"><v-btn color="grey">Annuler</v-btn></a>
+                      <v-btn color="blue">Reinitialiser </v-btn>
+                    </div>
+                  </template>
+                
+                </v-app>
+            </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+<script>
+      new Vue({
+el : '#creaCagnotte',
+        data: () => ({
+          dates: [],
+          menu: false
+        })
+      })
+    </script>
+    <script>
+            export default {
+              data: () => ({
+                valid: false,
+                NomCagnotte: '',
+                Budget: '',
+                nameRules: [
+                  v => !!v || 'Name is required',
+                  v => !!v || 'Name is required'
+                ],
+                disabled
+              })
+            }
+          </script>
+</html>

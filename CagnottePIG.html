@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <style>
+      .Budget{
+          display: inline-block;
+          text-align: right;
+          padding-right: 20px;
+      }
+      .date{
+          text-align: center;
+          font-size: 13px;
+          color: grey;
+
+      }
+      .bouton{
+        position: -webkit-sticky;
+        position: sticky;
+
+        text-align: center;
+        background-color: blue;
+      }
+      .toolbar{
+          background-color: blue;
+      }
+  body{
+      width: 50%; 
+  }
+  </style>
+</head>
+<body style="max-width:1550px; margin:auto" >
+        <div  id="app">
+    <v-app>
+    <template>
+        <v-layout row>
+          <v-flex xs12 sm6 offset-sm3>
+            <v-card>
+              <v-toolbar dark class="toolbar">
+                <v-toolbar-side-icon></v-toolbar-side-icon>
+      
+                <v-toolbar-title>Vos cagnottes</v-toolbar-title>
+      
+                <v-spacer></v-spacer>
+      
+                <v-btn >
+                  <v-icon>search</v-icon>
+                </v-btn>
+              </v-toolbar>
+      
+              <v-list two-line>
+                <template v-for="(cagnottes, index) in cagnottesList">
+                  <a href="DetailsCagnotte.html" style="text-decoration:none;color: black"><v-subheader 
+                    v-if="cagnottes.name"
+                    :key="cagnottes.name"
+                  >
+                 
+               
+                  <v-list-tile
+                  :key="cagnottes.name"
+                  avatar
+                  v-html="cagnottes.name" 
+                  @click=""
+                >
+                 
+    
+                  
+              <a href="DetailsCagnotte.html" style="text-decoration:none;color: black">  <v-list-tile-title class="Budget" v-html="cagnottes.budget" ></v-list-tile-title><v-list-tile-content></v-list-tile-content>
+                    <v-list-tile-sub-title class="date" v-html="cagnottes.date_end"></v-list-tile-sub-title>       <v-divider inset></v-divider>  
+                  </v-list-tile-content></a>
+                </v-list-tile>
+                  </v-subheader></a>
+                 
+                </template>
+              </v-list>
+            </v-card>
+          </v-flex>
+        </v-layout>
+        <div>
+      
+                <a href="PIGcalendrier.html" style="text-decoration:none; color: black" ><v-btn fab dark>
+                  <v-icon dark icon >add</v-icon>
+                </v-btn></a>
+              </div>
+      </template>
+    
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+      <script>
+        new Vue({
+            el : '#app',
+            data () {
+            return {
+                cagnottesList: [],
+
+          }
+        },
+
+          methods : {
+              getCagnottesList (){
+              fetch ('https://cesitest-73b3e.firebaseio.com/cagnottes.json')
+              .then(reponse => reponse.json())
+              .then(cagnottes => this.cagnottesList= cagnottes)
+            },
+          },
+        mounted(){
+            this.getCagnottesList()
+        }
+        })
+    
+      </script>
+      </div>
+      </v-app>
+      </body>
+</html>
